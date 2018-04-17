@@ -14,7 +14,7 @@ include "header.php";
 		<div class="col s12 m1 l2"></div>
 		<div class="col s12 m10 l8">
 			<br><br>
-			<a href="http://www.apps-fa.com/proyects/database/alumnos.php" class="center col s12 m6" style="margin-top: 4%">
+			<a href="http://www.apps-fa.com/proyects/database/alumnos" class="center col s12 m6" style="margin-top: 4%">
 				<div class="col s12 light-blue lighten-2 white-text">
 					<i class="material-icons"><h1>face</h1></i>
 				</div>
@@ -26,7 +26,7 @@ include "header.php";
 					<br>
 				</div>
 			</a>
-			<a href="http://www.apps-fa.com/proyects/database/materias.php" class="center col s12 m6" style="margin-top: 4%">
+			<a href="http://www.apps-fa.com/proyects/database/materias" class="center col s12 m6" style="margin-top: 4%">
 				<div class="col s12 pink white-text">
 					<i class="material-icons"><h1>assignment</h1></i>
 				</div>
