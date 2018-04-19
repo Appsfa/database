@@ -2,20 +2,22 @@
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	include_once "../link.php";
-	$matricula = strip_tags($_POST['matricula']);
+	$matricula = $_POST['matricula'];
+	
 	$link = Conectarse();
+	
 	$array = array();
 	
-	$result_matricula = mysqli_query($link, "SELECT * FROM Alumno WHERE matricula = '$matricula'");
+	$delete_alumno = mysqli_query($link, "DELETE FROM  Alumno WHERE  matricula = '$matricula'");
 	
-	if(mysqli_num_rows($result_matricula) > 0)
+	if($delete_alumno)
 	{
-		$array['estado'] = 'true';
+		$array['estado'] = "Alumno " . $matricula . " BORRADO";
 	}
 	
 	else
 	{
-		$array['estado'] = 'false';
+		$array['estado'] = mysqli_error($link);
 	}
 	
 	print(json_encode($array));

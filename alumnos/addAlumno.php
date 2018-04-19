@@ -2,17 +2,21 @@
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	include_once "../link.php";
-	$matricula = $_POST['matricula'];
-	$nombre = $_POST['nombre'];
-	$apellidoP = $_POST['apellidoP'];
-	$apellidoM = $_POST['apellidoM'];
-	$semestre = $_POST['semestre'];
+	setlocale(LC_TIME,'es_MX');
+	date_default_timezone_set('America/Mexico_City');
+	$horaRegistro = date('Y-m-d h:i:s');
+	$matricula = strip_tags($_POST['matricula']);
+	$nombre = strip_tags($_POST['nombre']);
+	$apellidoP = strip_tags($_POST['apellidoP']);
+	$apellidoM = strip_tags($_POST['apellidoM']);
+	$semestre = strip_tags($_POST['semestre']);
+	$ip = strip_tags($_POST['ip']);
 	
 	$link = Conectarse();
 	
 	$array = array();
 	
-	$insert_alumno = mysqli_query($link, "INSERT INTO Alumno VALUES('$matricula', '$nombre', '$apellidoP', '$apellidoM', '$semestre')");
+	$insert_alumno = mysqli_query($link, "INSERT INTO Alumno VALUES('$matricula', '$nombre', '$apellidoP', '$apellidoM', '$semestre', '$horaRegistro', '$ip')");
 	
 	if($insert_alumno)
 	{

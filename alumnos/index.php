@@ -202,6 +202,8 @@ $(document).ready(function(){
 					if(data.estado == "true")
 					{
 						$("#infoMatricula").html("<span class='white-text'><i class='material-icons left red-text'>close</i>No disponible</span>");
+						$("#txtMatricula").removeClass("valid");
+						$("#txtMatricula").addClass("invalid");
 					}
 					
 					else
@@ -215,6 +217,16 @@ $(document).ready(function(){
 	$('.modal').modal();
 	$("#btnAddAlumno").on("click", function(){
 		var datos = new FormData($("#createAlumno")[0]);
+			var ip = "";
+			var getIp = $.ajax({
+			type: "GET",
+			url: "http://ip-api.com/json",
+			dataType: "json",
+			success: function(data) {
+					console.log(data);
+					ip = data.query;
+				}
+			});
 		$("#createAlumno").find('input').filter(
 		 function(){
 			 if($(this).attr('required'))
@@ -237,38 +249,43 @@ $(document).ready(function(){
 		
 		if(flag)
 		{
-			$("#modal1").modal("open");
-			var promise = $.ajax({
-					type: "POST",
-					url: "addAlumno.php",
-					data: datos,
-					contentType: false,
-					processData: false,
-					dataType: "json",
-					success: function(data){
-						$("#modal1").modal("close");
-						M.toast({html: data.estado});
-						$(this).addClass("hide");
-						$("#btnOK").removeClass("hide");
-					}
-			});
-			
-			promise.then(function(){
-				$("#tableAlumnos").html("<tr><td colspan='7' class='center'>" + preloaderCircle + "</td></tr>")
-				$.ajax({
-					type: "POST",
-					url: "consultaAlumno.php",
-					data: datos,
-					contentType: false,
-					processData: false,
-					dataType: "json",
-					success: function(data){
-						var html = "";
-						for(var i = 0; i < data.length; i++)
-						{
-							html += "<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>";
+			getIp.then(function(){
+				$("#modal1").modal("open");
+				datos.append("ip", ip);
+				var promise = $.ajax({
+						type: "POST",
+						url: "addAlumno.php",
+						data: datos,
+						contentType: false,
+						processData: false,
+						dataType: "json",
+						success: function(data){
+							$("#modal1").modal("close");
+							M.toast({html: data.estado, displayLength: 8000});
+							$(this).addClass("hide");
+							$("#btnOK").removeClass("hide");
+							$(this).addClass("hide");
 						}
-					}
+				});
+
+				promise.then(function(){
+					$("#tableAlumnos").html("<tr><td colspan='7' class='center'>" + preloaderCircle + "</td></tr>")
+					$.ajax({
+						type: "POST",
+						url: "consultaAlumnos.php",
+						contentType: false,
+						processData: false,
+						dataType: "json",
+						success: function(data){
+							var html = "";
+							for(var i = 0; i < data.length; i++)
+							{
+								html += "<tr><td>" + data[i].matricula + "</td><td>" + data[i].nombre + "</td><td>" + data[i].apellidoPat + "</td><td>" + data[i].apellidoMat + "</td><td>" + data[i].semestre + "</td><td><a class='btn waves-effect waves-light green select' href='http://www.apps-fa.com/proyects/database/alumnos/rud.php?matricula=" + data[i].matricula + "' id='" + data[i].matricula + "'><i class='material-icons left'>adjust</i>SELECT</a></td><td><a class='btn waves-effect waves-light red delete'><i class='material-icons left'>delete</i>DELETE</a></td></tr>";
+							}
+							
+							$("#tableAlumnos").html(html);
+						}
+					});
 				});
 			});
 		}
@@ -286,15 +303,49 @@ $(document).ready(function(){
 				}
 			});
 	});
-	$(".delete").on("click", function(){
+	$(document).on("click", ".delete", function(){
 		$("#modalDelete").modal("open");
 		$("#spanMatricula").html($(this).attr("id"));
 	});
 	$("btnAceptarDelete").on("click", function(){
 		var matricula = $("#spanMatricula").html();
+		console.log(matricula);
+		var formMatricula = new FormData();
+		formMatricula.append("matricula", matricula);
+		var promise = $.ajax({
+				type: "POST",
+				url: "deleteAlumno.php",
+				data: formMatricula,
+				contentType: false,
+				processData: false,
+				dataType: "json",
+				success: function(data){
+					M.toast({html: data.estado});
+				}
+			});
+		promise.then(function(){
+					$("#tableAlumnos").html("<tr><td colspan='7' class='center'>" + preloaderCircle + "</td></tr>")
+					$.ajax({
+						type: "POST",
+						url: "consultaAlumnos.php",
+						contentType: false,
+						processData: false,
+						dataType: "json",
+						success: function(data){
+							var html = "";
+							for(var i = 0; i < data.length; i++)
+							{
+								html += "<tr><td>" + data[i].matricula + "</td><td>" + data[i].nombre + "</td><td>" + data[i].apellidoPat + "</td><td>" + data[i].apellidoMat + "</td><td>" + data[i].semestre + "</td><td><a class='btn waves-effect waves-light green select' href='http://www.apps-fa.com/proyects/database/alumnos/rud.php?matricula=" + data[i].matricula + "' id='" + data[i].matricula + "'><i class='material-icons left'>adjust</i>SELECT</a></td><td><a class='btn waves-effect waves-light red delete'><i class='material-icons left'>delete</i>DELETE</a></td></tr>";
+							}
+							
+							$("#tableAlumnos").html(html);
+						}
+					});
+				});
 	});
 });
 
 </script>
+<? include "../info.php"; ?>	
 </body>
 </html>

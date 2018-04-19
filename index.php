@@ -68,5 +68,6 @@ $(document).ready(function(){
 });
 
 </script>
+	<? include "info.php"; ?>
 </body>
 </html>
