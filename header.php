@@ -1,8 +1,8 @@
 	<header style="height: auto">
-  <nav class="transparent">
-    <div class="nav-wrapper flow-text" style="padding-left: 3%; padding-right: 3%;">
-      <a href="http://www.apps-fa.com/proyects/database/" class="brand-logo">BD</a>
-      <a  data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons"><h4>menu</h4></i></a>
+  <nav>
+    <div class="nav-wrapper light-blue flow-text" style="padding-left: 3%; padding-right: 3%;">
+      <a href="http://www.apps-fa.com/proyects/database/" class="brand-logo">BASE DE DATOS</a>
+      <a  data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="http://www.apps-fa.com/proyects/database/">Inicio</a></li>
         <li><a href="collapsible.html">About Us</a></li>
