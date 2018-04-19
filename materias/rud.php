@@ -146,18 +146,6 @@ $(document).ready(function(){
 		$("#modalDelete").modal("open");
 		$("#spanMatricula").html($(this).attr("id"));
 	});
-	$("#btnUpdateAlumno").on("click", function(){
-		var datos = new FormData($("#createAlumno")[0]);
-			var ip = "";
-			var getIp = $.ajax({
-			type: "POST",
-			url: "updateAlumno.php",
-			data: datos,
-			success: function(data) {
-					console.log(data);
-					ip = data.query;
-				}
-			});
 	$("btnAceptarDelete").on("click", function(){
 		var matricula = $("#spanMatricula").html();
 		console.log(matricula);
