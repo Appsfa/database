@@ -15,7 +15,7 @@ include "header.php";
 		<div class="col s12 m10 l8">
 			<br><br>
 			<div class="col s12 m6">
-				<a class="col s12 light-blue white-text center">
+				<a class="col s12 light-blue white-text center" href="http://www.apps-fa.com/proyects/database/alumnos">
 					<h1><i class="material-icons large">face</i></h1>
 					<h4>ALUMNOS</h4>
 				</a>
@@ -24,7 +24,7 @@ include "header.php";
 				<br><br>
 			</div>
 			<div class="col s12 m6">
-				<a class="col s12 pink white-text center">
+				<a class="col s12 pink white-text center" href="http://www.apps-fa.com/proyects/database/materias">
 					<h1><i class="material-icons large">book</i></h1>
 					<h4>MATERIAS</h4>
 				</a>
