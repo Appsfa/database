@@ -29,8 +29,10 @@ include "../header.php";
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
-			<li class="tab col s6"><a class="active" href="#general">GENERAL</a></li>
-			<li class="tab col s6"><a href="#alum">ALUMNOS</a></li>
+			<li class="tab col s3"><a class="active" href="#general">GENERAL</a></li>
+		  	<li class="tab col s3"><a href="#materias">MATERIAS</a></li>
+			<li class="tab col s3"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
+		  	<li class="tab col s3"><a href="#baja">DAR DE BAJA MATERIA</a></li>
 		  </ul>
 		</div>
 		<div class="row" id="general">
