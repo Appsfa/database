@@ -16,9 +16,9 @@ include "../header.php";
 	<div class="row">
 	<div class="">
 	  <ul class="tabs">
-		<li class="tab col s6"><a href="#create">CREATE</a></li>
-		<li class="tab col s6"><a class="active" href="#materias">Materias</a></li>
-	  	<li class="tab col s6"><a class="active" href="#bloques">BLOQUES</a></li>
+		<li class="tab col s4"><a href="#create">CREATE</a></li>
+		<li class="tab col s4"><a class="active" href="#materias">Materias</a></li>
+	  	<li class="tab col s4"><a href="#bloques">BLOQUES</a></li>
 	  </ul>
 	</div>
 	<div id="materias" class="row">
