@@ -29,10 +29,9 @@ include "../header.php";
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
-			<li class="tab col s3"><a class="active" href="#general">GENERAL</a></li>
-		  	<li class="tab col s3"><a href="#materias">MATERIAS</a></li>
-			<li class="tab col s3"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
-		  	<li class="tab col s3"><a href="#baja">DAR DE BAJA MATERIA</a></li>
+			<li class="tab col s6 l3"><a class="active" href="#general">GENERAL</a></li>
+			<li class="tab col s6 l3"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
+		  	<li class="tab col s6 l3"><a href="#materias">MATERIAS</a></li>
 		  </ul>
 		</div>
 		<div class="row" id="general">
@@ -40,40 +39,49 @@ include "../header.php";
 			<div class="col s12 m10 l8">
 				<br><br>
 				<form class="white-text" id="updateAlumno">
-				<div class="col s8 input-field">
-					<input type="text" class="validate white-text" id="txtMatricula" name="matricula" required value="<?php echo $rowAlumno->matricula; ?>">
-					<label for="txtMatricula">Matricula</label>
-				</div>
-				<div class="col s4 center">
-					<a class="btn grey white-text waves-effect" id="btnGenerate"><i class="material-icons left">settings</i>Generar Matricula</a>
-				</div>
-				<div class="col s12">
-					<div class="col s8" id="infoMatricula"></div>
-					<br><br>
-				</div>
-				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtNombre" name="nombre" required value="<?php echo $rowAlumno->nombre; ?>">
-					<label for="txtNombre">Nombre</label>
-				</div>
-				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtApellidoP" name="apellidoP" required value="<?php echo $rowAlumno->apellidoPat; ?>">
-					<label for="txtApellidoP">Apellido Paterno</label>
-				</div>
-				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtApellidoM" name="apellidoM" required value="<?php echo $rowAlumno->apellidoMat; ?>">
-					<label for="txtApellidoM">Apellido materno</label>
-				</div>
-				<div class="col s12 input-field">
-					<input type="number" class="validate white-text" id="txtSemestre" name="semestre" required value="<?php echo $rowAlumno->semestre; ?>">
-					<label for="txtSemestre">Semestre</label>
-				</div>
-				<div class="center col s12">
-					<br><br>
-					<a class="btn blue white-text waves-effect waves-light" id="btnUpdateAlumno"><i class="material-icons left">edit</i>Actualizar</a>
-				</div>
-			</form>
+					<div class="col s12 left">
+						Matricula: <?php echo $rowAlumno->matricula; ?>
+					</div>
+					<div class="col s12">
+						<div class="col s8" id="infoMatricula"></div>
+						<br><br>
+					</div>
+					<div class="col s12 m4 input-field">
+						<input type="text" class="validate white-text" id="txtNombre" name="nombre" required value="<?php echo $rowAlumno->nombre; ?>">
+						<label for="txtNombre">Nombre</label>
+					</div>
+					<div class="col s12 m4 input-field">
+						<input type="text" class="validate white-text" id="txtApellidoP" name="apellidoP" required value="<?php echo $rowAlumno->apellidoPat; ?>">
+						<label for="txtApellidoP">Apellido Paterno</label>
+					</div>
+					<div class="col s12 m4 input-field">
+						<input type="text" class="validate white-text" id="txtApellidoM" name="apellidoM" required value="<?php echo $rowAlumno->apellidoMat; ?>">
+						<label for="txtApellidoM">Apellido materno</label>
+					</div>
+					<div class="col s12 input-field">
+						<input type="number" class="validate white-text" id="txtSemestre" name="semestre" required value="<?php echo $rowAlumno->semestre; ?>">
+						<label for="txtSemestre">Semestre</label>
+					</div>
+					<div class="center col s12">
+						<br><br>
+						<a class="btn blue white-text waves-effect waves-light" id="btnUpdateAlumno"><i class="material-icons left">edit</i>Actualizar</a>
+					</div>
+				</form>
 			</div>
 			<div class="col s12 m1 l2"></div>
+		</div>
+		<div class="row" id="inscribir"></div>
+		<div class="row" id="materias">
+			<br><br>
+			<table class="highlight centered responsive-table">
+				<thead>
+					<th>Materia</th>
+					<th>Estado</th>
+					<th>Aprobada</th>
+					<th>Select</th>
+					<th>Delete</th>
+				</thead>
+			</table>
 		</div>
 	</main>
 	<div id="modal1" class="modal transparent">
