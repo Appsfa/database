@@ -12,22 +12,16 @@
 include "../header.php";
 ?>
 <body  style="background-image: url(../img/bg-main.png)">
-	<nav>
-		<div class="nav-wrapper light-blue lighten-2" style="padding-left: 2%">
-			<div class="col s12">
-				<a href="http://www.apps-fa.com/proyects/database" class="breadcrumb">Inicio</a>
-				<a href="http://www.apps-fa.com/proyects/database/materias.php" class="breadcrumb">Materias</a>
-			</div>
-		</div>
-	</nav>
+	<?php include "../nav-wrapper.php"; ?>
 	<div class="row">
 	<div class="">
 	  <ul class="tabs">
 		<li class="tab col s6"><a href="#create">CREATE</a></li>
-		<li class="tab col s6"><a class="active" href="#alumnos">Materias</a></li>
+		<li class="tab col s6"><a class="active" href="#materias">Materias</a></li>
+	  	<li class="tab col s6"><a class="active" href="#bloques">BLOQUES</a></li>
 	  </ul>
 	</div>
-	<div id="alumnos" class="row">
+	<div id="materias" class="row">
 		<div class="col s12 m1"></div>
 		<div class="col s12 m10">
 			<br><br>
@@ -36,7 +30,6 @@ include "../header.php";
 					<tr>
 						<th>Clave</th>
 						<th>Nombre</th>
-						<th>Objetivo</th>
 						<th>Optativa</th>
 						<th>Formato</th>
 						<th>Bloque</th>
@@ -44,23 +37,22 @@ include "../header.php";
 						<th>Delete</th>
 					</tr>
 				</thead>
-				<tbody id="tableAlumnos">
+				<tbody id="tableMateria">
 				<?php
-				$result_materias = mysqli_query($link, "SELECT * FROM materia");
-				if(mysqli_num_rows($result_mateias) > 0)
+				$result_materias = mysqli_query($link, "SELECT * FROM Materia WHERE 1");
+				if(mysqli_num_rows($result_materias) > 0)
 				{
 					while($row_result_materias = mysqli_fetch_object($result_materias))
 					{
 						?>
 						<tr>
-							<td><?php echo $row_result_materia->clave; ?></td>
-							<td><?php echo $row_result_materia->nombre; ?></td>
-							<td><?php echo $row_result_materia->objetivo; ?></td>
-							<td><?php echo $row_result_materia->optativa; ?></td>
-							<td><?php echo $row_result_materia->formato; ?></td>
-							<td><?php echo $row_result_materia->Bloques_nombreBloque; ?></td>
-							<td><a href="http://www.apps-fa.com/proyects/database/materias/rud.php?clave=<?php echo $row_result_materia->clave; ?>" class="btn green white-text waves-effect waves-light select" id="<?php echo $row_result_materia->clave; ?>"><i class="material-icons left">adjust</i>SELECT</a></td>
-							<td><a class="btn red white-text waves-effect waves-light delete" id="<?php echo $row_result_materia->clave; ?>"><i class="material-icons left">delete</i>DELETE</a></td>
+							<td><?php echo $row_result_materias->clave; ?></td>
+							<td><?php echo $row_result_materias->nombre; ?></td>
+							<td><?php echo $row_result_materias->optativa; ?></td>
+							<td><?php echo $row_result_materias->formato; ?></td>
+							<td><?php echo $row_result_materias->Bloques_nombreBloque; ?></td>
+							<td><a href="http://www.apps-fa.com/proyects/database/materias/rud.php?clave=<?php echo $row_result_materias->clave; ?>" class="btn green white-text waves-effect waves-light select" id="<?php echo $row_result_materias->clave; ?>"><i class="material-icons left">adjust</i>SELECT</a></td>
+							<td><a class="btn red white-text waves-effect waves-light delete" id="<?php echo $row_result_materias->clave; ?>"><i class="material-icons left">delete</i>DELETE</a></td>
 						</tr>
 						<?php
 					}
@@ -76,7 +68,7 @@ include "../header.php";
 		<div class="col s12 m1 l2"></div>
 		<div class="col s12 m10 l8">
 			<br><br>
-			<form class="white-text" id="createAlumno">
+			<form class="white-text" id="createMateria">
 				<div class="col s8 input-field">
 					<input type="text" class="validate white-text" id="txtMatricula" name="clave" required>
 					<label for="txtMatricula"><span class="red-text">* </span>Clave</label>
