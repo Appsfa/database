@@ -12,14 +12,7 @@
 include "../header.php";
 ?>
 <body  style="background-image: url(../img/bg-main.png)">
-	<nav>
-		<div class="nav-wrapper light-blue lighten-2" style="padding-left: 2%">
-			<div class="col s12">
-				<a href="http://www.apps-fa.com/proyects/database" class="breadcrumb">Inicio</a>
-				<a href="http://www.apps-fa.com/proyects/database/alumnos.php" class="breadcrumb">Alumnos</a>
-			</div>
-		</div>
-	</nav>
+<?php include_once "../nav-wrapper.php"; ?>
 	<div class="row">
 	<div class="">
 	  <ul class="tabs">

@@ -25,6 +25,7 @@ include "../header.php";
 	}
 ?>
 <body  style="background-image: url(http://apps-fa.com/proyects/database/img/bg-main.png)">
+	<?php include_once "../nav-wrapper.php"; ?>
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
