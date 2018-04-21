@@ -29,9 +29,9 @@ include "../header.php";
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
-			<li class="tab col s6 l3"><a class="active" href="#general">GENERAL</a></li>
-			<li class="tab col s6 l3"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
-		  	<li class="tab col s6 l3"><a href="#materias">MATERIAS</a></li>
+			<li class="tab col s6 l4"><a class="active" href="#general">GENERAL</a></li>
+			<li class="tab col s6 l4"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
+		  	<li class="tab col s6 l4"><a href="#materias">MATERIAS</a></li>
 		  </ul>
 		</div>
 		<div class="row" id="general">
@@ -73,7 +73,7 @@ include "../header.php";
 		<div class="row" id="inscribir"></div>
 		<div class="row" id="materias">
 			<br><br>
-			<table class="highlight centered responsive-table">
+			<table class="highlight centered responsive-table white-text">
 				<thead>
 					<th>Materia</th>
 					<th>Estado</th>
@@ -81,6 +81,29 @@ include "../header.php";
 					<th>Select</th>
 					<th>Delete</th>
 				</thead>
+				<tbody>
+					<?php
+					$result_inscritas = mysqli_query($link, "SELECT * FROM Materia_Alumno");
+					if(mysqli_num_rows($result_inscritas) > 0)
+					{
+						while($row_inscritas = mysqli_fetch_object($result_inscritas))
+						{
+							?>
+							<tr>
+								<td><?php  ?></td>
+							</tr>
+							<?php
+						}
+					}
+					
+					else
+					{
+						?>
+						<tr><td colspan="5">No hay materias inscritas</td></tr>
+						<?php
+					}
+					?>
+				</tbody>
 			</table>
 		</div>
 	</main>
