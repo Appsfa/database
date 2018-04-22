@@ -78,16 +78,16 @@ include "../header.php";
 					<table class="highlight responsive-table centered white-text" id="tableMaterias">
 						<thead>
 							<tr>
-								<th>Clave</th>
-								<th>Nombre de la Materia</th>
-								<th>Formato</th>
-								<th>Select</th>
-								<th>Inscribir</th>
+								<th>CLAVE</th>
+								<th>NOMBRE DE LA MATERIA</th>
+								<th>FROMATO</th>
+								<th>SELECT</th>
+								<th>INSCRIBIR</th>
 							</tr>
 						</thead>
 						<tbody id="tableBodyMaterias">
 							<?php 
-							$result_inscribir = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and')))");
+							$result_inscribir = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and'))) ORDER BY clave");
 							
 							if(mysqli_num_rows($result_inscribir) > 0)
 							{
@@ -95,18 +95,91 @@ include "../header.php";
 								{
 									?>
 									<tr>
-										<th><?php echo $row_inscribir->clave; ?></th>
-										<th><?php echo $row_inscribir->nombre; ?></th>
-										<th><?php echo $row_inscribir->formato; ?></th>
-										<td><a class="btn blue waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
-										<td><a class="btn green waves-effect waves-light delete-materia" id="<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">add</i>INSCRIBIR</a></td>
+										<th class="center"><?php echo $row_inscribir->clave; ?></th>
+										<th class="center"><?php echo $row_inscribir->nombre; ?></th>
+										<th class="center"><?php echo $row_inscribir->formato; ?></th>
+										<td class="center"><a class="btn blue waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
+										<td class="center"><a class="btn green waves-effect waves-light delete-materia" id="<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">add</i>INSCRIBIR</a></td>
 									</tr>
 									<?php
 								}		
 							}
+							
+							else
+							{
+								?>
+								<tr><td colspan="5">No hay materias inscritas</td></tr>
+								<?php
+							}
 							?>
 						</tbody>
 					</table>
+				</div>
+				<div class="col s12" id="materiasBloques">
+					<?php
+					$result_bloques = mysqli_query($link, "SELECT DISTINCT(Bloques_nombreBloque) FROM `Materia` GROUP BY Bloques_nombreBloque ORDER BY Bloques_nombreBloque");
+					if(mysqli_num_rows($result_bloques) > 0)
+					{
+						while($row_bloques = mysqli_fetch_object($result_bloques))
+						{
+							?>
+							<br><br>
+							<table class="white-text responsive-table highlight centered" id="<?php echo $row_bloques->Bloques_nombreBloque; ?>">
+								<thead>
+									<tr>
+										<th colspan="5" class="center"><h2><?php echo $row_bloques->Bloques_nombreBloque; ?></h2></th>
+									</tr>
+									<tr>
+										<th>CLAVE</th>
+										<th>NOMBRE DE LA MATERIA</th>
+										<th>FROMATO</th>
+										<th>SELECT</th>
+										<th>INSCRIBIR</th>
+									</tr>
+								</thead>
+								<tbody id="tableBody<?php echo $row_bloques->Bloques_nombreBloque; ?>">
+									<?php 
+									$result_inscribir_bloque = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and'))) AND Bloques_nombreBloque = '$row_bloques->Bloques_nombreBloque' ORDER BY clave");
+
+									if(mysqli_num_rows($result_inscribir_bloque) > 0)
+									{
+										while($row_inscribir_bloque = mysqli_fetch_object($result_inscribir_bloque))
+										{
+											?>
+											<tr>
+												<th class="center"><?php echo $row_inscribir_bloque->clave; ?></th>
+												<th class="center"><?php echo $row_inscribir_bloque->nombre; ?></th>
+												<th class="center"><?php echo $row_inscribir_bloque->formato; ?></th>
+												<td class="center"><a class="btn blue waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscribir_bloque->clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
+												<td class="center"><a class="btn green waves-effect waves-light delete-materia" id="<?php echo $row_inscribir_bloque->clave; ?>"><i class="left material-icons">add</i>INSCRIBIR</a></td>
+											</tr>
+											<?php
+										}		
+									}
+
+									else
+									{
+										?>
+										<tr><td colspan="5">No hay materias inscritas</td></tr>
+										<?php
+									}
+									?>
+								</tbody>
+							</table>
+							<?php
+						}
+					}
+					
+					else
+					{
+						?>
+						<br><br>
+						<div class="col s12 center">
+							NO HAY BLOQUES, QUE RARO!
+						</div>
+						<?php
+					}
+					?>
 				</div>
 			</div>
 			<div class="col s12 m1 l2"></div>
@@ -130,11 +203,11 @@ include "../header.php";
 						{
 							?>
 							<tr>
-								<td><?php echo $row_inscritas->Materia_clave;  ?></td>
-								<td><?php echo $row_inscritas->estadoMat;  ?></td>
-								<td><?php echo $row_inscritas->calificacion;  ?></td>
-								<td><a class="btn green waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
-								<td><a class="btn red waves-effect waves-light delete-materia" id="<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">delete</i>DELETE</a></td>
+								<td class="center"><?php echo $row_inscritas->Materia_clave;  ?></td>
+								<td class="center"><?php echo $row_inscritas->estadoMat;  ?></td>
+								<td class="center"><?php echo $row_inscritas->calificacion;  ?></td>
+								<td class="center"><a class="btn green waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
+								<td class="center"><a class="btn red waves-effect waves-light delete-materia" id="<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">delete</i>DELETE</a></td>
 							</tr>
 							<?php
 						}
