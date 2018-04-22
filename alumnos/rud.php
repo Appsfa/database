@@ -70,7 +70,47 @@ include "../header.php";
 			</div>
 			<div class="col s12 m1 l2"></div>
 		</div>
-		<div class="row" id="inscribir"></div>
+		<div class="row" id="inscribir">
+			<div class="col s12 m1 l2"></div>
+			<div class="col s12 m10 l8">
+				<br><br>
+				<div class="col s12" id="divMaterias">
+					<table class="highlight responsive-table centered white-text" id="tableMaterias">
+						<thead>
+							<tr>
+								<th>Clave</th>
+								<th>Nombre de la Materia</th>
+								<th>Formato</th>
+								<th>Select</th>
+								<th>Inscribir</th>
+							</tr>
+						</thead>
+						<tbody id="tableBodyMaterias">
+							<?php 
+							$result_inscribir = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and')))");
+							
+							if(mysqli_num_rows($result_inscribir) > 0)
+							{
+								while($row_inscribir = mysqli_fetch_object($result_inscribir))
+								{
+									?>
+									<tr>
+										<th><?php echo $row_inscribir->clave; ?></th>
+										<th><?php echo $row_inscribir->nombre; ?></th>
+										<th><?php echo $row_inscribir->formato; ?></th>
+										<td><a class="btn blue waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
+										<td><a class="btn green waves-effect waves-light delete-materia" id="<?php echo $row_inscribir->clave; ?>"><i class="left material-icons">add</i>INSCRIBIR</a></td>
+									</tr>
+									<?php
+								}		
+							}
+							?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col s12 m1 l2"></div>
+		</div>
 		<div class="row" id="materias">
 			<br><br>
 			<table class="highlight centered responsive-table white-text">
@@ -83,14 +123,18 @@ include "../header.php";
 				</thead>
 				<tbody>
 					<?php
-					$result_inscritas = mysqli_query($link, "SELECT * FROM Materia_Alumno");
+					$result_inscritas = mysqli_query($link, "SELECT * FROM Materia_Alumno WHERE Alumno_matricula = '$matricula'");
 					if(mysqli_num_rows($result_inscritas) > 0)
 					{
 						while($row_inscritas = mysqli_fetch_object($result_inscritas))
 						{
 							?>
 							<tr>
-								<td><?php  ?></td>
+								<td><?php echo $row_inscritas->Materia_clave;  ?></td>
+								<td><?php echo $row_inscritas->estadoMat;  ?></td>
+								<td><?php echo $row_inscritas->calificacion;  ?></td>
+								<td><a class="btn green waves-effect waves-light select-materia" id="<?php echo $row_inscritas->Materia_clave; ?>" href="http://www.apps-fa.com/proyects/database/materias/rud.php?materia=<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">adjust</i>SELECT</a></td>
+								<td><a class="btn red waves-effect waves-light delete-materia" id="<?php echo $row_inscritas->Materia_clave; ?>"><i class="left material-icons">delete</i>DELETE</a></td>
 							</tr>
 							<?php
 						}
@@ -177,6 +221,7 @@ $(document).ready(function(){
 	$('.sidenav').sidenav();
 	$(".modal").modal();
 	$('.tabs').tabs();
+	$('select').formSelect();
 	$(document).on("click", ".delete", function(){
 		$("#modalDelete").modal("open");
 		$("#spanMatricula").html($(this).attr("id"));
