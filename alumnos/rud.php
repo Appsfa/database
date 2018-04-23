@@ -7,6 +7,7 @@
 	include_once "../restrict.php";
 	include_once "../pagination.php";
 	include "../head.php";
+	include_once "../search.php";
 	
 	if(isset($_GET['pag']))
 	{
@@ -85,6 +86,10 @@ include "../header.php";
 				<br><br>
 				<?php pagination("clave", "Materia", "num"); ?>
 				<br><br>
+				<?php 
+				$array = array("clave", "nombre", "formato");
+				createSearch("clave", $array); 
+				?>
 				<div class="col s12 center">
 					<a class="btn blue waves-effect waves-light" id="btnShowBlocks">MOSTRAR POR BLOQUES</a>
 					<a class="btn blue waves-effect waves-light hide" id="btnShowAll">MOSTRAR TODAS LAS MATERIAS</a>
@@ -319,7 +324,7 @@ $(document).ready(function(){
 		fullWidth: true,
 		indicators: false
 	});
-
+	$('select').formSelect();
 	$('.sidenav').sidenav();
 	$(".modal").modal();
 	$('.tabs').tabs();

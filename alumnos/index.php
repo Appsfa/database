@@ -218,6 +218,7 @@ $(document).ready(function(){
 			});
 	});
 	$('.modal').modal();
+	$('select').formSelect();
 	$("#btnAddAlumno").on("click", function(){
 		var datos = new FormData($("#createAlumno")[0]);
 			var ip = "";
