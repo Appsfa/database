@@ -3,9 +3,17 @@
 <head>
 	<title>Alumnos</title> 
 	<?php
+	include_once "../restrict.php";
+	include_once "../pagination.php";
 	include "../head.php";
-	include "../link.php";
+	include_once "../link.php";
 	$link = Conectarse();
+	if(isset($_GET['pag']))
+	{
+		$pag = $_GET['pag'];
+		$show = $_GET['show'];
+		$limit = ($pag - 1) * $show;
+	}
 	?>
 </head>
 <?php
@@ -24,6 +32,7 @@ include "../header.php";
 		<div class="col s12 m1"></div>
 		<div class="col s12 m10">
 			<br><br>
+			<?php pagination("matricula", "num", "Alumno"); ?>
 			<table class="white-text responsive-table highlight centered">
 				<thead>
 					<tr>
@@ -38,7 +47,7 @@ include "../header.php";
 				</thead>
 				<tbody id="tableAlumnos">
 				<?php
-				$result_alumnos = mysqli_query($link, "SELECT * FROM Alumno ORDER BY matricula");
+				$result_alumnos = mysqli_query($link, "SELECT * FROM Alumno ORDER BY matricula LIMIT $limit, $show");
 				if(mysqli_num_rows($result_alumnos) > 0)
 				{
 					while($row_result_alumno = mysqli_fetch_object($result_alumnos))

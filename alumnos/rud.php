@@ -4,6 +4,8 @@
 <head>
 	<title>ALUMNOS | RUD</title> 
 	<?php
+	include_once "../restrict.php";
+	include_once "../pagination.php";
 	include "../head.php";
 	?>
 </head>
@@ -13,7 +15,7 @@ include "../header.php";
 	
 	$matricula = $_GET['matricula'];
 	$link = Conectarse();
-	$result_matricula = mysqli_query($link, "SELECT matricula, nombre, apellidoPat, apellidoMat, semestre FROM Alumno WHERE matricula = '$matricula'");
+	$result_matricula = mysqli_query($link, "SELECT matricula, nombre, apellidoPat, apellidoMat, semestre FROM Alumno WHERE matricula = '$matricula' ORDER BY matricula LIMIT $limit, $show");
 	if(mysqli_num_rows($result_matricula) > 0)
 	{
 		$rowAlumno = mysqli_fetch_object($result_matricula);
