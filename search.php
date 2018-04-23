@@ -1,11 +1,14 @@
 <?php
-if($_SERVER['REQUEST_METHOD'] == 'POST')
+function createSearch($defaultColumn, $arrayColumn)
 {
-	
-}
-
-else
-{
-	header("Location: http://www.apps-fa.com/proyects/database");
+	?>
+	<div class="col s12 center">
+		<div class="col s3 input-field">
+			<input type="text" class="validate" id="txtSearch">
+			<label for="txtSearch">Buscador</label>
+		</div>
+		
+	</div>
+	<?php
 }
 ?>
