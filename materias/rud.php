@@ -1,26 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>ALUMNOS | RUD</title> 
+	<title>Materias | RUD</title> 
 	<?php
+	include_once "../restrict.php";
+	include_once "../pagination.php";
 	include "../head.php";
+	include_once "../search.php";
+	
+	if(isset($_GET['pag']))
+	{
+		$pag = $_GET['pag'];
+		$show = $_GET['show'];
+		$limit = ($pag - 1) * $show;
+	}
 	?>
 </head>
 <?php
 include "../header.php";
 	include_once "../link.php";
 	
-	$matricula = $_GET['matricula'];
+	$clave = $_GET['clave'];
 	$link = Conectarse();
-	$result_matricula = mysqli_query($link, "SELECT matricula, nombre, apellidoPat, apellidoMat, semestre FROM Alumno WHERE matricula = '$matricula'");
+	$result_clave = mysqli_query($link, "SELECT clave, nombre, objetivo, optativa, formato, Bloques_nombreBloque FROM materia WHERE clave = '$clave'");
 	if(mysqli_num_rows($result_matricula) > 0)
 	{
-		$rowAlumno = mysqli_fetch_object($result_matricula);
+		$rowMateria = mysqli_fetch_object($result_clave);
 	}
 	
 	else
 	{
-		header("Location: http://apps-fa.com/proyects/database/alumnos");
+		header("Location: http://apps-fa.com/proyects/database/materias");
 	}
 ?>
 <body  style="background-image: url(http://apps-fa.com/proyects/database/img/bg-main.png)">
@@ -28,14 +38,14 @@ include "../header.php";
 		<div class="">
 		  <ul class="tabs">
 			<li class="tab col s6"><a class="active" href="#general">GENERAL</a></li>
-			<li class="tab col s6"><a href="#alum">ALUMNOS</a></li>
+			<li class="tab col s6"><a href="#mat">Materia</a></li>
 		  </ul>
 		</div>
 		<div class="row" id="general">
 			<div class="col s12 m1 l2"></div>
 			<div class="col s12 m10 l8">
 				<br><br>
-				<form class="white-text" id="updateAlumno">
+				<form class="white-text" id="updateMateria">
 				<div class="col s8 input-field">
 					<input type="text" class="validate white-text" id="txtMatricula" name="matricula" required value="<?php echo $rowAlumno->matricula; ?>">
 					<label for="txtMatricula">Matricula</label>
