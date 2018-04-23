@@ -2,7 +2,6 @@
 include_once "link.php";
 
 $ruta = $_SERVER['PHP_SELF'];
-echo $ruta;
 
 $linkRestrict = Conectarse();
 

@@ -85,18 +85,17 @@ include "../header.php";
 			<div class="col s12 m10 center">
 				<br><br>
 				<?php pagination("clave", "Materia", "num"); ?>
-				<br><br>
-				<?php 
-				$array = array("clave", "nombre", "formato");
-				createSearch("clave", $array); 
-				?>
 				<div class="col s12 center">
 					<a class="btn blue waves-effect waves-light" id="btnShowBlocks">MOSTRAR POR BLOQUES</a>
 					<a class="btn blue waves-effect waves-light hide" id="btnShowAll">MOSTRAR TODAS LAS MATERIAS</a>
 					<br><br>
 				</div>
 				<div class="col s12" id="divMaterias">
-					<table class="highlight responsive-table centered white-text" id="tableMaterias">
+					<?php 
+					$array = array("clave", "nombre", "formato");
+					createSearch("clave", $array); 
+					?>
+					<table class="highlight centered white-text col s12" id="tableMaterias">
 						<thead>
 							<tr>
 								<th>CLAVE</th>

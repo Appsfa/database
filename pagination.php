@@ -33,9 +33,12 @@ function pagination($column, $table, $alias)
 		$numeroTotal = mysqli_fetch_object($result_num_table);
 		$numPag = $numeroTotal->$alias/$show;
 		$numPag = ceil($numPag);
-		echo $numPag;
-
-		?><ul class="pagination"><?php
+		
+		?>
+<div class="col s12" id="divPagination">
+<ul class="pagination">
+	
+	<?php
 
 		for($i = 1; $i <= $numPag; $i++)
 		{
@@ -159,7 +162,7 @@ function pagination($column, $table, $alias)
 
 		}
 
-		?></ul><?php
+		?></ul></div><?php
 	}
 	
 	mysqli_close($link);
