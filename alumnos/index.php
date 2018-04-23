@@ -30,9 +30,10 @@ include "../header.php";
 	</div>
 	<div id="alumnos" class="row">
 		<div class="col s12 m1"></div>
-		<div class="col s12 m10">
+		<div class="col s12 m10 center">
 			<br><br>
 			<?php pagination("matricula", "Alumno", "num"); ?>
+			<br><br>
 			<table class="white-text responsive-table highlight centered">
 				<thead>
 					<tr>

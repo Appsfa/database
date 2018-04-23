@@ -83,6 +83,8 @@ include "../header.php";
 			<div class="col s12 m1"></div>
 			<div class="col s12 m10">
 				<br><br>
+				<?php pagination("clave", "Materia", "num"); ?>
+				<br><br>
 				<div class="col s12 center">
 					<a class="btn blue waves-effect waves-light" id="btnShowBlocks">MOSTRAR POR BLOQUES</a>
 					<a class="btn blue waves-effect waves-light hide" id="btnShowAll">MOSTRAR TODAS LAS MATERIAS</a>
