@@ -35,7 +35,7 @@ function pagination($column, $table, $alias)
 		$numPag = ceil($numPag);
 		
 		?>
-<div class="col s12" id="divPagination">
+<div class="col s12" id="paginationUpper">
 <ul class="pagination">
 	
 	<?php
@@ -168,3 +168,8 @@ function pagination($column, $table, $alias)
 	mysqli_close($link);
 }
 ?>
+<script type="text/javascript">
+function pagination( jQuery ){
+	$("#paginationBottom").html($("#paginationUpper"));
+ }
+</script>

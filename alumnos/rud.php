@@ -39,8 +39,8 @@ include "../header.php";
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
-			<li class="tab col s6 l4"><a class="active" href="#general">GENERAL</a></li>
-			<li class="tab col s6 l4"><a href="#inscribir">INSCRIBIR MATERIA</a></li>
+			<li class="tab col s6 l4"><a href="#general">GENERAL</a></li>
+			<li class="tab col s6 l4"><a class="active" href="#inscribir">INSCRIBIR MATERIA</a></li>
 		  	<li class="tab col s6 l4"><a href="#materias">MATERIAS</a></li>
 		  </ul>
 		</div>
@@ -134,6 +134,11 @@ include "../header.php";
 							?>
 						</tbody>
 					</table>
+					<div class="col s12">
+						<br><br>
+					</div>
+					<div class="col s12" id="paginationBottom">
+					</div>
 				</div>
 				<div class="col s12 hide" id="materiasBloques">
 					<ul class="collapsible">
