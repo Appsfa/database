@@ -97,8 +97,22 @@ include "../header.php";
 					<label for="txtSemestre"><span class="red-text">* </span>Formato</label>
 				</div>
 				<div class="col s12 input-field">
-					<input type="text" class="validate white-text" id="txtSemestre" name="bloque" required>
-					<label for="txtSemestre"><span class="red-text">* </span>Bloque</label>
+				<select name="bloque" id="txtBloque">
+				<option value="" disabled selected>Escoge una opción</option>
+					<?php 
+					$result_bloques = mysqli_query($link, "SELECT * FROM bloques Order by nombreBloque");
+					if(mysqli_num_rows($result_bloques) > 0)
+						{
+								while($rowBloques = mysqli_fetch_object($result_bloques)){
+									?>
+									<option value="<?php echo $rowBloques->nombreBloque ?>" ><?php echo $rowBloques->nombreBloque ?></option>
+									<?php
+								}
+
+						}
+					?>
+					</select>
+					<<label>Bloques</label>
 				</div>
 				<div class="left col s12">
 				<br><br>
