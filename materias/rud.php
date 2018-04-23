@@ -22,7 +22,7 @@ include "../header.php";
 	
 	$clave = $_GET['clave'];
 	$link = Conectarse();
-	$result_clave = mysqli_query($link, "SELECT clave, nombre, objetivo, optativa, formato, Bloques_nombreBloque FROM materia WHERE clave = '$clave'");
+	$result_clave = mysqli_query($link, "SELECT clave, nombre, objetivo, optativa, formato, Bloques_nombreBloque FROM Materia WHERE clave = '$clave'");
 	if(mysqli_num_rows($result_clave) > 0)
 	{
 		$rowMateria = mysqli_fetch_object($result_clave);
@@ -34,6 +34,7 @@ include "../header.php";
 	}
 ?>
 <body  style="background-image: url(http://apps-fa.com/proyects/database/img/bg-main.png)">
+<?php include_once "../nav-wrapper.php"; ?>
 	<main class="row">
 		<div class="">
 		  <ul class="tabs">
@@ -47,7 +48,7 @@ include "../header.php";
 				<br><br>
 				<form class="white-text" id="updateMateria">
 				<div class="col s8 input-field">
-					<input type="text" class="validate white-text" id="txtMatricula" name="matricula" required value="<?php echo $rowAlumno->matricula; ?>">
+					<input type="text" class="validate white-text" id="txtMatricula" name="Clave" required value="<?php echo $rowMateria->clave; ?>">
 					<label for="txtMatricula">Matricula</label>
 				</div>
 				<div class="col s4 center">
@@ -58,24 +59,28 @@ include "../header.php";
 					<br><br>
 				</div>
 				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtNombre" name="nombre" required value="<?php echo $rowAlumno->nombre; ?>">
+					<input type="text" class="validate white-text" id="txtNombre" name="nombre" required value="<?php echo $rowMateria->nombre; ?>">
 					<label for="txtNombre">Nombre</label>
 				</div>
 				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtApellidoP" name="apellidoP" required value="<?php echo $rowAlumno->apellidoPat; ?>">
-					<label for="txtApellidoP">Apellido Paterno</label>
+					<input type="number" class="validate white-text" id="txtApellidoM" name="optativa" required value="<?php echo $rowMateria->optativa; ?>">
+					<label for="txtApellidoM">Optativa</label>
 				</div>
 				<div class="col s4 input-field">
-					<input type="text" class="validate white-text" id="txtApellidoM" name="apellidoM" required value="<?php echo $rowAlumno->apellidoMat; ?>">
-					<label for="txtApellidoM">Apellido materno</label>
+					<input type="text" class="validate white-text" id="txtSemestre" name="formato" required value="<?php echo $rowMateria->formato; ?>">
+					<label for="txtSemestre">Formato</label>
 				</div>
 				<div class="col s12 input-field">
-					<input type="number" class="validate white-text" id="txtSemestre" name="semestre" required value="<?php echo $rowAlumno->semestre; ?>">
-					<label for="txtSemestre">Semestre</label>
+					<textarea  class="validate white-text" id="txtApellidoP" name="objetivo" required value="<?php echo $rowMateria->objetivo; ?>">
+					<label for="txtApellidoP">Objetivo</label>
+				</div>
+				<div class="col s12 input-field">
+					<input type="text" class="validate white-text" id="txtSemestre" name="bloque" required value="<?php echo $rowMateria->Bloques_nombreBloque; ?>">
+					<label for="txtSemestre">Nombre del Bloque</label>
 				</div>
 				<div class="center col s12">
 					<br><br>
-					<a class="btn blue white-text waves-effect waves-light" id="btnUpdateAlumno"><i class="material-icons left">edit</i>Actualizar</a>
+					<a class="btn blue white-text waves-effect waves-light" id="btnUpdateMateria"><i class="material-icons left">edit</i>Actualizar</a>
 				</div>
 			</form>
 			</div>
@@ -130,7 +135,7 @@ include "../header.php";
 	<div id="modalDelete" class="modal">
 		<div class="modal-content center">
 			<br><br>
-			<h4>¿Seguro que desea borrar <span id="spanMatricula"></span>?</h4>
+			<h4>¿Seguro que desea borrar <span id="spanClave"></span>?</h4>
 		</div>
 		<div class="center">
 			<a class="waves-effect waves-light btn green" id="btnAceptarDelete">Aceptar</a>
@@ -154,16 +159,16 @@ $(document).ready(function(){
 	$('.tabs').tabs();
 	$(document).on("click", ".delete", function(){
 		$("#modalDelete").modal("open");
-		$("#spanMatricula").html($(this).attr("id"));
+		$("#spanClave").html($(this).attr("id"));
 	});
 	$("btnAceptarDelete").on("click", function(){
-		var matricula = $("#spanMatricula").html();
-		console.log(matricula);
+		var clave = $("#spanClave").html();
+		console.log(clave);
 		var formMatricula = new FormData();
-		formMatricula.append("matricula", matricula);
+		formMatricula.append("clave", clave);
 		var promise = $.ajax({
 				type: "POST",
-				url: "deleteAlumno.php",
+				url: "deleteMateria.php",
 				data: formMatricula,
 				contentType: false,
 				processData: false,
@@ -176,7 +181,7 @@ $(document).ready(function(){
 					$("#tableAlumnos").html("<tr><td colspan='7' class='center'>" + preloaderCircle + "</td></tr>")
 					$.ajax({
 						type: "POST",
-						url: "consultaAlumnos.php",
+						url: "consultaMateria.php",
 						contentType: false,
 						processData: false,
 						dataType: "json",
@@ -201,9 +206,9 @@ $(document).ready(function(){
 		<div class="row">
 			<div class="col s12 center">
 				<br><br>
-				<a class="btn grey white-text waves-effect waves-light" href="http://www.apps-fa.com/proyects/database/alumnos"><i class="left material-icons">exit_to_app</i>Salir</a>
+				<a class="btn grey white-text waves-effect waves-light" href="http://www.apps-fa.com/proyects/database/materia"><i class="left material-icons">exit_to_app</i>Salir</a>
 				
-				<a class="btn red white-text waves-effect waves-light delete" id="<?php echo $rowAlumno->matricula; ?>"><i class="left material-icons">delete</i>Borrar</a>
+				<a class="btn red white-text waves-effect waves-light delete" id="<?php echo $rowMateria->clave; ?>"><i class="left material-icons">delete</i>Borrar</a>
 			</div>
 		</div>
 	</footer>
