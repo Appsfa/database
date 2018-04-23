@@ -161,5 +161,7 @@ function pagination($column, $table, $alias)
 
 		?></ul><?php
 	}
+	
+	mysqli_close($link);
 }
 ?>

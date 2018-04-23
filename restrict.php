@@ -65,6 +65,8 @@ if(mysqli_num_rows($result_ruta) > 0)
 			}
 		}
 	}
+	
+	mysqli_close($linkRestrict);
 }
 
 ?>
