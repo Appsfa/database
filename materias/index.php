@@ -100,19 +100,27 @@ include "../header.php";
 				<select name="bloque" id="txtBloque">
 				<option value="" disabled selected>Escoge una opción</option>
 					<?php 
-					$result_bloques = mysqli_query($link, "SELECT * FROM bloques Order by nombreBloque");
+					$result_bloques = mysqli_query($link, "SELECT * FROM Bloques Order by nombreBloque");
 					if(mysqli_num_rows($result_bloques) > 0)
 						{
 								while($rowBloques = mysqli_fetch_object($result_bloques)){
-									?>
-									<option value="<?php echo $rowBloques->nombreBloque ?>" ><?php echo $rowBloques->nombreBloque ?></option>
+									if($rowBloques->nombreBloque == ""){
+										?>
+									<option value="<?php echo $rowBloques->nombreBloque ?>" >Sin Bloque</option>
 									<?php
+									}
+									else{
+										?>
+										<option value="<?php echo $rowBloques->nombreBloque ?>" ><?php echo $rowBloques->nombreBloque ?></option>
+										<?php
+									}
+									
 								}
 
 						}
 					?>
 					</select>
-					<<label>Bloques</label>
+					<label>Bloques</label>
 				</div>
 				<div class="left col s12">
 				<br><br>
@@ -197,6 +205,7 @@ $(document).ready(function(){
 	var preloaderCircle = '<div class="preloader-wrapper big active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
 	$('.sidenav').sidenav();
 	$('.tabs').tabs();
+	$('select').formSelect();
 	$("#txtClave").blur(function(){
 		var datos = new FormData();
 		datos.append("Clave", $(this).val());
