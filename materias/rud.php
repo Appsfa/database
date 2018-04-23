@@ -71,7 +71,7 @@ include "../header.php";
 					<label for="txtSemestre">Formato</label>
 				</div>
 				<div class="col s12 input-field">
-					<textarea  class="validate white-text" id="txtApellidoP" name="objetivo" required value="<?php echo $rowMateria->objetivo; ?>">
+					<textarea  class="materialize-textarea white-text" id="txtApellidoP" name="objetivo"></textarea>
 					<label for="txtApellidoP">Objetivo</label>
 				</div>
 				<div class="col s12 input-field">
@@ -153,7 +153,8 @@ $(document).ready(function(){
 		fullWidth: true,
 		indicators: false
 	});
-
+	$('#txtApellidoP').val("<?php echo $rowMateria->objetivo; ?>");
+	M.textareaAutoResize($('#txtApellidoP'));
 	$('.sidenav').sidenav();
 	$(".modal").modal();
 	$('.tabs').tabs();
