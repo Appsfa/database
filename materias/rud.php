@@ -23,7 +23,7 @@ include "../header.php";
 	$clave = $_GET['clave'];
 	$link = Conectarse();
 	$result_clave = mysqli_query($link, "SELECT clave, nombre, objetivo, optativa, formato, Bloques_nombreBloque FROM materia WHERE clave = '$clave'");
-	if(mysqli_num_rows($result_matricula) > 0)
+	if(mysqli_num_rows($result_clave) > 0)
 	{
 		$rowMateria = mysqli_fetch_object($result_clave);
 	}
