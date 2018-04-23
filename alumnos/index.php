@@ -32,7 +32,7 @@ include "../header.php";
 		<div class="col s12 m1"></div>
 		<div class="col s12 m10">
 			<br><br>
-			<?php pagination("matricula", "num", "Alumno"); ?>
+			<?php pagination("matricula", "Alumno", "num"); ?>
 			<table class="white-text responsive-table highlight centered">
 				<thead>
 					<tr>

@@ -7,6 +7,13 @@
 	include_once "../restrict.php";
 	include_once "../pagination.php";
 	include "../head.php";
+	
+	if(isset($_GET['pag']))
+	{
+		$pag = $_GET['pag'];
+		$show = $_GET['show'];
+		$limit = ($pag - 1) * $show;
+	}
 	?>
 </head>
 <?php
@@ -15,7 +22,7 @@ include "../header.php";
 	
 	$matricula = $_GET['matricula'];
 	$link = Conectarse();
-	$result_matricula = mysqli_query($link, "SELECT matricula, nombre, apellidoPat, apellidoMat, semestre FROM Alumno WHERE matricula = '$matricula' ORDER BY matricula LIMIT $limit, $show");
+	$result_matricula = mysqli_query($link, "SELECT matricula, nombre, apellidoPat, apellidoMat, semestre FROM Alumno WHERE matricula = '$matricula'");
 	if(mysqli_num_rows($result_matricula) > 0)
 	{
 		$rowAlumno = mysqli_fetch_object($result_matricula);
@@ -94,7 +101,7 @@ include "../header.php";
 						</thead>
 						<tbody id="tableBodyMaterias">
 							<?php 
-							$result_inscribir = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and'))) ORDER BY clave");
+							$result_inscribir = mysqli_query($link, "SELECT DISTINCT(clave), nombre, formato FROM Materia WHERE clave NOT IN(SELECT requisitoMat FROM Requisito) OR clave IN (SELECT esRequisito FROM Requisito WHERE (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = '') OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or') OR (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'or')) OR ((esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and') AND (esRequisito IN (SELECT Materia_clave FROM Materia_Alumno, Alumno WHERE Alumno_matricula = matricula AND Alumno_matricula = '$matricula' AND calificacion = '1') AND orand = 'and'))) ORDER BY clave LIMIT $limit, $show");
 							
 							if(mysqli_num_rows($result_inscribir) > 0)
 							{

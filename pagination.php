@@ -1,6 +1,7 @@
 <?php
 function pagination($column, $table, $alias)
 {
+	include_once "link.php";
 	$link = Conectarse();
 
 	if(isset($_GET['pag']))
@@ -14,6 +15,7 @@ function pagination($column, $table, $alias)
 		$numeroTotal = mysqli_fetch_object($result_num_table);
 		$numPag = $numeroTotal->$alias/$show;
 		$numPag = ceil($numPag);
+		echo $numPag;
 
 		?><ul class="pagination"><?php
 
