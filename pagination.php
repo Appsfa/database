@@ -9,6 +9,24 @@ function pagination($column, $table, $alias)
 		$pag = $_GET['pag'];
 		$show = $_GET['show'];
 		$limit = ($pag - 1) * $show;
+		
+		if(isset($_GET['matricula']))
+		{
+			$get = "matricula=";
+			$getComp = $_GET['matricula'] . "&";
+		}
+		
+		else if(isset($_GET['clave']))
+		{
+			$get = "clave=";
+			$getComp = $_GET['clave'] . "&";
+		}
+		
+		else
+		{
+			$get = "";
+			$getComp = $get;
+		}
 
 		$result_num_table= mysqli_query($link, "SELECT (COUNT($column)) AS $alias FROM $table");
 
@@ -35,7 +53,7 @@ function pagination($column, $table, $alias)
 					if($i == $numPag)
 					{
 						?>
-						<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+						<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 						<li class="waves-effect waves-light disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 						<?php
 					}
@@ -43,7 +61,7 @@ function pagination($column, $table, $alias)
 					else
 					{
 						?>
-						<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+						<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 						<?php
 					}
 				}
@@ -52,7 +70,7 @@ function pagination($column, $table, $alias)
 				else
 				{
 					?>
-					<li class="waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+					<li class="waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 					<?php
 				}
 
@@ -64,7 +82,7 @@ function pagination($column, $table, $alias)
 				if($i == 1)
 				{
 					?>
-					<li class=" waves-effect waves-light"><a href="?pag=<?php echo $pag - 1; ?>&show=<?php echo $show; ?>"><i class="material-icons">chevron_left</i></a></li>
+					<li class=" waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $pag - 1; ?>&show=<?php echo $show; ?>"><i class="material-icons">chevron_left</i></a></li>
 					<?php
 					//SI LA PAGINA ES DONDE ESTAMOS
 					if($i == $pag)
@@ -73,7 +91,7 @@ function pagination($column, $table, $alias)
 						if($i == $numPag)
 						{
 							?>
-							<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 							<li class="waves-effect waves-light disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 							<?php
 						}
@@ -81,7 +99,7 @@ function pagination($column, $table, $alias)
 						else
 						{
 							?>
-							<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 							<?php
 						}
 					}
@@ -90,7 +108,7 @@ function pagination($column, $table, $alias)
 					else
 					{
 						?>
-						<li class="waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+						<li class="waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 						<?php
 					}
 				}
@@ -104,7 +122,7 @@ function pagination($column, $table, $alias)
 						if($i == $numPag)
 						{
 							?>
-							<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 							<li class="waves-effect waves-light disabled"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
 							<?php
 						}
@@ -112,7 +130,7 @@ function pagination($column, $table, $alias)
 						else
 						{
 							?>
-							<li class="active waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="active waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 							<?php
 						}
 					}
@@ -124,15 +142,15 @@ function pagination($column, $table, $alias)
 						if($i == $numPag)
 						{
 							?>
-							<li class="waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
-							<li class="waves-effect waves-light"><a href="?pag=<?php echo $pag + 1; ?>&show=<?php echo $show; ?>"><i class="material-icons">chevron_right</i></a></li>
+							<li class="waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $pag + 1; ?>&show=<?php echo $show; ?>"><i class="material-icons">chevron_right</i></a></li>
 							<?php
 						}
 
 						else
 						{
 							?>
-							<li class="waves-effect waves-light"><a href="?pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
+							<li class="waves-effect waves-light"><a href="?<?php echo $get . $getComp; ?>pag=<?php echo $i; ?>&show=<?php echo $show; ?>"><?php echo $i; ?></a></li>
 							<?php
 						}
 					}

@@ -81,7 +81,7 @@ include "../header.php";
 		</div>
 		<div class="row" id="inscribir">
 			<div class="col s12 m1"></div>
-			<div class="col s12 m10">
+			<div class="col s12 m10 center">
 				<br><br>
 				<?php pagination("clave", "Materia", "num"); ?>
 				<br><br>
